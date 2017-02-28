@@ -5,12 +5,12 @@ from tensorflow.python.ops import rnn, rnn_cell
 import sys
 
 # learning data
-rnn_size = 1
+rnn_size = 2
 train_steps = 10000
-test_data_size = 10
+test_data_size = 2
 
-data_size = 10
-num_data = 10
+data_size = 5
+num_data = 3
 
 x_data = []
 y_data = []
@@ -30,10 +30,10 @@ x_data = np.reshape(x_data, [num_data,data_size,1])
 y_data = np.array(y_data, dtype = np.float32)
 y_data = np.reshape(y_data,[-1,1])
 
-print(x_data)
-print(y_data)
-print(x_data.shape)
-print(y_data.shape)
+#print(x_data)
+#print(y_data)
+#print(x_data.shape)
+#print(y_data.shape)
 
 test_x_data = []
 for i in range(3,3+test_data_size):
@@ -42,8 +42,8 @@ for i in range(3,3+test_data_size):
 test_x_data = np.array(test_x_data, dtype = np.float32)
 test_x_data = np.reshape(test_x_data, [-1,test_data_size,1])
 
+print(test_x_data)
 print(test_x_data.shape)
-
 # train
 train_x = tf.placeholder('float', [None, data_size,1 ])
 train_y = tf.placeholder('float', [None,1])
@@ -79,7 +79,17 @@ for i in range(train_steps+1):
     if i%500==0:
         print(c)
 
+print("States")
+print(sess.run(train_states, feed_dict = {train_x : x_data, train_y : y_data}))
+print("Outputs")
+print(sess.run(train_outputs, feed_dict = {train_x : x_data, train_y : y_data}))
+print("Last output")
+print(sess.run(train_outputs[-1], feed_dict = {train_x : x_data, train_y : y_data}))
+print("value")
+print(sess.run([layer['weights'], layer['biases']]))
+print("final result")
 print(sess.run(train_output, feed_dict = {train_x : x_data, train_y : y_data}))
+
 
 print("-----------------------------------------------")
 print(test_x_data)
