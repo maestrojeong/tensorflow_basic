@@ -48,11 +48,10 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 sess = tf.InteractiveSession()
 sess.run(tf.global_variables_initializer())
-saver = tf.train.Saver()
 
-epoch = 1 
+epoch = 2 
 for j in range(epoch):
-    for i in range(10):
+    for i in range(550):
         batch = mnist.train.next_batch(100)
         train_step.run(feed_dict={x: batch[0], y_: batch[1]})
         if i%50 == 49:
@@ -62,5 +61,6 @@ for j in range(epoch):
                     
 test_accuracy = accuracy.eval(feed_dict={x: mnist.test.images, y_:mnist.test.labels})
 print("test accuracy = {}".format(test_accuracy))
+saver = tf.train.Saver()
 saver.save(sess, './save/my-model')
 #saver.export_meta_graph(filename = './save/my-model.meta')

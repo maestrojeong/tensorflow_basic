@@ -4,7 +4,6 @@ import numpy as np
 import sys
 
 mnist = input_data.read_data_sets('./MNIST_data', one_hot=True)
-
 def conv_relu(input, kernel_shape, pool_shape, bias_shape):
     w = tf.Variable(tf.random_normal(kernel_shape,stddev=0.1),name='weights')
     b = tf.Variable(tf.constant(0.1, shape = bias_shape), name = 'biases')
@@ -48,6 +47,7 @@ with tf.variable_scope("final"):
     train = tf.train.AdamOptimizer(1e-4).minimize(loss = error, var_list = tf.get_collection("local"))
     prediction = tf.equal(tf.argmax(y_hat,1), tf.argmax(y_,1))
     correct = tf.reduce_mean(tf.cast(prediction, tf.float32))
+'''
 i = 0 
 while True:
     try:
@@ -58,16 +58,16 @@ while True:
 i = 0 
 while True:
     try:
-        print(tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)[i]) 
+        print(tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES)[i]) 
         i+=1
     except IndexError:
         break;
-sys.exit()
+'''
 # tf.global_variables_initailizer() = tf.variables_initializer(tf.get_collection(tf.GraphKeys.GLOBAL_VARIBLES)
                                     #tf.variables_initailizer(tf.global_variables())
 
 sess.run(tf.variables_initializer(tf.get_collection("local")))
-
+sess.run(tf.variables_initializer([v for v in tf.get_collection("variables") if v.name.startswith("final")]))
 epoch = 1
 for j in range(epoch):
     for i in range(550):
