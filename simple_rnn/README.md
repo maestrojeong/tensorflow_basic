@@ -1,5 +1,6 @@
 # Requirement
+    tensorflow version = 1.0.0
+    python = 3.4
 
-tensorflow version = 1.0.0
-
-# Practice code for rnn
+# Explanation
+    Using for loop instead of static_rnn module
