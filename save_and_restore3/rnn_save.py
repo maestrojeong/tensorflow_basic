@@ -50,7 +50,6 @@ train_y = tf.placeholder('float', [None,1])
 test_x = tf.placeholder('float', [1,test_data_size,1])
 test_y = tf.placeholder('float', [1]) 
 
-
 train_x_temp = tf.transpose(train_x, [1,0,2])
 train_x_temp = tf.reshape(train_x_temp, [-1,1])
 train_x_temp =tf.split(0, data_size, train_x_temp)
