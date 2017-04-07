@@ -4,6 +4,7 @@ import numpy as np
 import sys
 
 mnist = input_data.read_data_sets('../../MNIST_data', one_hot=True)
+
 def conv_relu(input, kernel_shape, pool_shape, bias_shape):
     w = tf.Variable(tf.random_normal(kernel_shape,stddev=0.1),name='weights')
     b = tf.Variable(tf.constant(0.1, shape = bias_shape), name = 'biases')
