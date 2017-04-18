@@ -32,7 +32,7 @@ print(y_data.shape)
 train_x = tf.placeholder('float', [data_size, num_data])
 train_y = tf.placeholder('float', [num_data])
 rnn_size = 1
-temp = MaeRNN(rnn_size)
+maernn = MaeRNN(rnn_size)
 
 temp_x = tf.unstack(train_x)
 
@@ -40,15 +40,15 @@ outputs = list()
 with tf.variable_scope("rnn") as scope:
     for i in range(data_size):
         if i==0:
-            state = temp.basic_rnn_cell(tf.expand_dims(temp_x[i],1))
+            state = maernn(tf.expand_dims(temp_x[i],1))
             outputs.append(state)
         else:
             scope.reuse_variables()
-            state = temp.basic_rnn_cell(tf.expand_dims(temp_x[i], 1), state)
+            state = maernn(tf.expand_dims(temp_x[i],1), state)
             outputs.append(state)
 
-layer = {'weights':tf.Variable(tf.random_normal([rnn_size, 1])),
-            'biases':tf.Variable(tf.random_normal([1]))}
+layer = {'weights':tf.Variable(tf.random_normal([rnn_size, 1]), name = 'output_weight'),
+            'biases':tf.Variable(tf.random_normal([1]), name = 'output_bias')}
 prediction = tf.reshape(tf.matmul(outputs[-1], layer['weights'])+ layer['biases'],[-1]) 
 error = tf.reduce_mean(tf.square(prediction - train_y))
 global_step = tf.Variable(0.0, trainable = False)
@@ -68,4 +68,4 @@ for i in range(3000):
         print(sess.run(learning_rate))
         print("{}th step cost : {}".format(i, c))
 
-print(sess.run(outputs, feed_dict = {train_x : x_data}))
+print(sess.run(prediction, feed_dict = {train_x : x_data}))
