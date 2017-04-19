@@ -10,7 +10,6 @@ x = tf.placeholder(tf.float32, [None, nfeatures])
 y = tf.placeholder(tf.float32, [None])
 
 W = tf.Variable(tf.random_uniform([nfeatures, 1], -1, 1), name = 'weights')
-b = tf.Variable(tf.random_uniform([1], -1, 1), name = 'biases')
 
 W_wrap = dropconnect_wrapper(W, 0.5)
 
