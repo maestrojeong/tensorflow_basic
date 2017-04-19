@@ -3,6 +3,16 @@ import numpy as np
 import sys
 
 def dropconnect_wrapper(w, keep_prob = 1.0):
+    '''
+        input : 
+                w : any tensor
+                keep_prob : float default to be 1.0 
+        
+        selector : same shape of w, to be 1 with probability with keep_prob otherwise 0
+
+        return :
+            keep the value of w with probability keep_prob    
+    '''
 
     selector = tf.sign(keep_prob - tf.random_uniform(get_size(w)
                                             ,minval = 0
