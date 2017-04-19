@@ -2,8 +2,9 @@ import tensorflow as tf
 import numpy as np
 import sys
 
-def dropconnect_wrapper(w, prob):
-    selector = tf.sign(prob - tf.random_uniform(get_size(w)
+def dropconnect_wrapper(w, keep_prob = 1.0):
+
+    selector = tf.sign(keep_prob - tf.random_uniform(get_size(w)
                                             ,minval = 0
                                             , maxval=1
                                             , dtype = tf.float32))
