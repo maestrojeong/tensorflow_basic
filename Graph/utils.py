@@ -2,7 +2,6 @@ import tensorflow as tf
 import sys 
 
 class Utility:
-    @staticmethod
     def print_keys(string):
         print("Collection name : {}".format(string))
         i = 0
@@ -12,7 +11,6 @@ class Utility:
                 i+=1
             except IndexError:
                 break;
-    @staticmethod
     def print_nodes(graph):
         print("Graph : {}".format(graph))
         temp = [n.name for n in graph.as_graph_def().node]
