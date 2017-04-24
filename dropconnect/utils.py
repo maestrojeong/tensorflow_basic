@@ -15,9 +15,9 @@ def dropconnect_wrapper(w, keep_prob = 1.0):
     '''
 
     selector = tf.sign(keep_prob - tf.random_uniform(get_size(w)
-                                            ,minval = 0
-                                            , maxval=1
-                                            , dtype = tf.float32))
+                                                    , minval = 0
+                                                    , maxval=1
+                                                    , dtype = tf.float32))
 
     selector = (selector + 1)/2
 

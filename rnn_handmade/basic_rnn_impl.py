@@ -1,7 +1,7 @@
 from utils import *
 
 # learning data
-rnn_size = 1
+rnn_size = 10
 train_steps = 10000
 test_data_size = 10
 
