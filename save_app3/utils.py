@@ -2,6 +2,31 @@ import numpy as np
 import tensorflow as tf
 import pandas as pd
 import sys
+import pprint
+
+def restore_with_var_dict(key, var_dict):
+    try:
+        return tf.get_variable(key, shape = var_dict[key]['shape'], initializer = tf.constant_initializer(var_dict[key]['value']))
+    except KeyError:
+        print("No such string")
+        return
+
+def get_var_dict(sess, string):
+    var_dict = {}
+    i= 0
+    
+    while True:
+        try: 
+            temp = tf.get_collection(string)[i]
+            prop = {}
+            prop['shape'] = temp.get_shape().as_list()
+            prop['value'] = sess.run(temp)
+            var_dict[temp.op.name] = prop
+            i+=1
+        except IndexError:
+            break;
+    
+    return var_dict
 
 def master_initializer(sess):
     uninitailized_variables=[] 
