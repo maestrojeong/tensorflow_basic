@@ -3,8 +3,8 @@ import tensorflow as tf
 x_data = [1., 2., 3., 4.]
 y_data = [2., 4., 6., 8.]
 
-W = tf.Variable(tf.random_uniform([1], -1., 1.),name="W")
-b = tf.Variable(tf.random_uniform([1], -1., 1.),name="b")
+W = tf.Variable(tf.random_uniform([1], -1., 1.), name = "W")
+b = tf.Variable(tf.random_uniform([1], -1., 1.), name = "b")
 
 X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
@@ -32,7 +32,6 @@ for step in range(2001):
 
 saver = tf.train.Saver()
 saver.save(sess, './save/linear')
+
 print(sess.run(hypothesis, feed_dict={X: 5}))
 print(sess.run(hypothesis, feed_dict={X: 2.5}))
-
-sess.close()
