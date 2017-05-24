@@ -10,13 +10,15 @@ Y = tf.placeholder(tf.float32)
 hypothesis = W_r * X + b_r
 
 sess = tf.Session()
+sess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
 
 print("tf.train.latest_checkpoint('./save/') = {}".format(tf.train.latest_checkpoint('./save/')))
-print("tf.global_variables")
-print([v.name for v in tf.global_variables()])
-
+print("Before restoration : tf.global_variables()")
+print(["{} : {}".format(v.name, sess.run(v)) for v in tf.global_variables()])
 saver.restore(sess, tf.train.latest_checkpoint('./save/'))
+print("After restoration : tf.global_variables()")
+print(["{} : {}".format(v.name, sess.run(v)) for v in tf.global_variables()])
 
 print(sess.run(hypothesis, feed_dict={X: 5}))
 print(sess.run(hypothesis, feed_dict={X: 2.5}))
