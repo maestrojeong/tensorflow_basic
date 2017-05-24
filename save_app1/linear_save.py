@@ -23,15 +23,14 @@ train = tf.train.GradientDescentOptimizer(1e-3).minimize(cost)
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
+saver = tf.train.Saver(tf.global_variables(), max_to_keep = 10)
 
 # fit the line
 for step in range(2001):
     sess.run(train, feed_dict={X: x_data, Y: y_data})
     if step % 100 == 0:
-        print(step, sess.run(cost, feed_dict={X: x_data, Y: y_data}), sess.run(W), sess.run(b))
-
-saver = tf.train.Saver()
-saver.save(sess, './save/linear')
+        print("{} step cost : {}".format(step, sess.run(cost, feed_dict={X: x_data, Y: y_data}), sess.run(W), sess.run(b)))
+        saver.save(sess, './save/linear', global_step = step)
 
 print(sess.run(hypothesis, feed_dict={X: 5}))
 print(sess.run(hypothesis, feed_dict={X: 2.5}))
